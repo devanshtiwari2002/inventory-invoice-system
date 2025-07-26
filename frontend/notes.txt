@@ -1,0 +1,74 @@
+🔐 1. Login Page
+Email, Password
+
+Submit → call login API → store JWT/token → redirect based on role
+
+🏠 2. Dashboard Page (Role Based)
+🧑‍💼 For Staff:
+Product selection dropdown/table
+
+Quantity input
+
+Customer name + phone input
+
+Total auto-calculate
+
+“Generate Invoice” button (PDF & Save to DB)
+
+👑 For Admin:
+Dashboard with:
+
+Today’s Sales (₹ + total count)
+
+Weekly sales chart (bar or line)
+
+Staff performance table
+
+Stock info list
+
+📦 3. Products Page
+Staff/Admin can:
+
+View all products
+
+Add, Edit, Delete product
+
+👥 4. Users/Staff Management (Admin only) (optional but powerful)
+View staff list
+
+Add/edit/remove staff
+
+📄 5. Invoice History / Sales Page (optional but useful)
+List of past invoices/sales
+
+Filter by date, staff, customer name
+
+🧭 6. Shared Components
+✅ Navbar
+
+✅ Sidebar
+
+✅ ProtectedRoute logic (based on token + role)
+
+✅ Toast alerts (success/error)
+
+✅ Loading spinners where needed
+
+
+---------------------------------------
+
+🔐 Login & Register Page Design
+
+📦 Connect to backend APIs
+
+🧠 Auth token save (localStorage/cookies)
+
+🧭 Dashboard & Routing
+
+🔧 Protected Routes (only for login user)
+
+⚙️ Role-Based UI control
+
+✅ Show product list in a table (admin/staff)
+✅ Create user list view for admin
+✅ Create sales list/invoice access

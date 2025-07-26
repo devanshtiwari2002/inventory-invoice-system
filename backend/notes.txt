@@ -1,0 +1,112 @@
+Admin
+{
+  "name": "Devansh Admin",
+  "email": "devansh@mart.com",
+  "password": "admin123",
+  "role": "admin"
+}
+products sales profile logout
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODEwY2UxZDQyMWZjMzUwYTA5MjUxMyIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MzI4NzkwNSwiZXhwIjoxNzUzODkyNzA1fQ.4gnVcpbM3RcVeqN-3KpY7MsR_K-VQ4QL_rQZX-9wcpM"
+
+STAFF 
+{
+  "name": "Jhon",
+  "email": "jhon@mart.com",
+  "password": "jhon123",
+  "role": "staff"
+}
+
+ "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODEwZDM5ZDQyMWZjMzUwYTA5MjUxNiIsInJvbGUiOiJzdGFmZiIsImlhdCI6MTc1MzI4Nzk5MywiZXhwIjoxNzUzODkyNzkzfQ.aJzriCTt87Ief7tTwYJhcl6dDd4xHiIS6HJUrpQacio"
+
+
+
+## ✅ Tere Pending Features:
+
+ 1. ✅ Admin Dashboard - Done
+
+* 👀 Total Daily Sales (today’s date filter)
+* 📈 Weekly Income (last 7 days sum)
+* 🧑‍💼 Staff Activity Summary (kis staff ne kitna sale kiya)
+* 📦 Stock Report (low stock, out of stock)
+
+ 2. ✅ User Management (Admin Only)
+
+* 👥 Create Staff Account (admin only)
+* ✏️ Update / Delete Staff
+* 🔐 Role Toggle (admin ↔ staff)
+* 🚫 Block / Unblock Staff (soft delete)
+
+---
+
+## 🔐 Recommended Advanced Backend Features for SaaS Readiness
+
+ 3. ✅ Advanced Auth & Security
+
+| Feature                                  | Why?                             |
+| ---------------------------------------- | -------------------------------- |
+| ✅ JWT Refresh Token                      | Secure long-lived sessions       |
+| ✅ Password Reset via Email               | SaaS users will forget passwords |
+| ✅ Rate Limiting / Brute-force protection | Prevent abuse                    |
+| ✅ CORS + Helmet + XSS sanitize           | Express security best practices  |
+
+---
+
+ 4. ✅ Multi-Tenancy Support (If future goal is SaaS)
+
+| Feature                                       | Benefit                                         |
+| --------------------------------------------- | ----------------------------------------------- |
+| 🏢 `storeId` in every model                   | So that multiple businesses can use same system |
+| 🧑‍🤝‍🧑 Staff only sees their own store data |                                                 |
+| 🚀 Ready to onboard many clients              |                                                 |
+
+---
+
+ 5. ✅ Advanced Reporting APIs
+
+| Feature                                      | For |
+| -------------------------------------------- | --- |
+| 📊 Filter sales by date range                |     |
+| 🔎 Search by customer, product, payment mode |     |
+| 📁 Export to Excel (CSV or xlsx)             |     |
+| 🔁 Repeat last sale (invoice clone)          |     |
+
+---
+
+ 6. ✅ Notifications / Logs
+
+* 🔔 Log each sale in a separate log collection
+* 📩 Email invoice to customer (if email added)
+* 📤 Admin email summary daily
+
+---
+
+ 7. ✅ Image Uploads (optional)
+
+* Product image upload (Multer + Cloudinary)
+* Staff profile picture
+* Logo on invoice
+
+---
+
+## 🧠 Suggested Next Flow
+
+| Phase      | Feature                              |
+| ---------- | ------------------------------------ |
+| 🔹 Phase 1 | ✅ Admin Dashboard APIs               |
+| 🔹 Phase 2 | ✅ User (Staff) Management            |
+| 🔹 Phase 3 | ✅ Search & filter + export           |
+| 🔹 Phase 4 | ✅ Auth improvements (refresh, reset) |
+| 🔹 Phase 5 | ✅ Multi-tenancy or deploy to client  |
+
+---
+
+## 💡 Bonus Idea: SaaS Panel
+
+* Each store/business signs up as admin
+* Adds staff, manages inventory
+* SaaS-style billing (Stripe integration)
+* You become the owner of the platform
+
+---
+
+-- Testing with jest for backend
