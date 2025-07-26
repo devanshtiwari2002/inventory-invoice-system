@@ -8,6 +8,8 @@ const salesRoutes = require("./routes/salesRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const userRoutes = require("./routes/userRoutes");
 
+const path = require("path");
+
 dotenv.config();
 connectDB();
 
@@ -37,6 +39,9 @@ app.use("/api/admin", adminRoutes);
 
 //user routes (admin only)
 app.use("/api/users", userRoutes);
+
+//invoice download button
+app.use("/invoices", express.static(path.join(__dirname, "invoices")));
 
 app.listen(process.env.PORT, () => {
   console.log(`server running on port ${process.env.PORT}`);

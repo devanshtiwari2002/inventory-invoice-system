@@ -6,7 +6,8 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    quantity: {
+    stock: {
+      // ✅ changed from "quantity" to "stock"
       type: Number,
       required: true,
     },
@@ -18,7 +19,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: "general",
     },
-    description: { type: String, default: "" },
+    description: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

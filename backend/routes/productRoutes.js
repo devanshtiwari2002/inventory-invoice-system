@@ -11,7 +11,7 @@ const { protect, authorizeRoles } = require("../middleware/authMiddleware");
 
 router.get("/", getProduct); //GET all
 router.post("/add", protect, authorizeRoles("staff", "admin"), createProduct); //POST create , only staff and admin can add
-router.put("/:id", updateProduct); // PUT update
+router.put("/:id", protect, authorizeRoles("admin"), updateProduct); // PUT update
 router.delete("/:id", deleteProduct); // DELETE
 
 module.exports = router;

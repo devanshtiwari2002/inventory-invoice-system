@@ -12,8 +12,21 @@ const createSale = async (req, res) => {
       products.map(async (item) => {
         const product = await Product.findById(item.productId);
         if (!product) {
-          throw new Error(`product not found ${item.productId}`);
+          throw new Error(`Product not found: ${item.productId}`);
         }
+
+        if (product.stock < item.quantity) {
+          throw new Error(`Insufficient stock for ${product.name}`);
+        }
+
+        // ✅ Reduce stock
+        // product.stock -= item.quantity;
+        if (typeof product.stock !== "number") {
+          throw new Error(`Invalid stock value for product ${product.name}`);
+        }
+
+        product.stock = product.stock - item.quantity;
+        await product.save();
 
         const total = product.price * item.quantity;
         grandTotal += total;
@@ -27,7 +40,6 @@ const createSale = async (req, res) => {
         };
       })
     );
-    console.log("📦 enrichedProducts", enrichedProducts);
 
     const sale = await Sale.create({
       customerName,
@@ -38,14 +50,12 @@ const createSale = async (req, res) => {
       staff: req.user._id,
     });
 
-    //debug
-    console.log("SALE-OBJECT", JSON.stringify(sale, null, 2));
-
     await generateInvoice(sale);
 
     res.status(201).json({
       message: "Sale created successfully",
       sale,
+      invoiceUrl: `/invoices/invoice-${sale._id}.pdf`,
     });
   } catch (error) {
     console.error(error);

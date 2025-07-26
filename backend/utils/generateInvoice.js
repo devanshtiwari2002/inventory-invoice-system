@@ -7,7 +7,7 @@ const generateInvoice = async (sale) => {
   const doc = new PDFDocument();
   const invoicePath = path.join(
     __dirname,
-    `../invoices/inoice-${sale._id}.pdf`
+    `../invoices/invoice-${sale._id}.pdf`
   );
   const writeStream = fs.createWriteStream(invoicePath);
   doc.pipe(writeStream);

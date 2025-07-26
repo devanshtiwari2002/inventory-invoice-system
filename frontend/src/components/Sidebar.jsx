@@ -24,15 +24,15 @@ export default function Sidebar() {
       <nav className="space-y-2">
         <NavItem href="/dashboard" label="Dashboard" pathname={pathname} />
 
-        {(role === "admin" || role === "staff") && (
+        {role === "admin" && (
           <>
             <NavItem href="/products" label="Products" pathname={pathname} />
-            <NavItem href="/sales" label="Sales" pathname={pathname} />
+            <NavItem href="/users" label="Users" pathname={pathname} />
           </>
         )}
 
-        {role === "admin" && (
-          <NavItem href="/users" label="Users" pathname={pathname} />
+        {role === "staff" && (
+          <NavItem href="/sales" label="Sales" pathname={pathname} />
         )}
 
         <NavItem href="/profile" label="Profile" pathname={pathname} />
@@ -41,7 +41,6 @@ export default function Sidebar() {
     </div>
   );
 }
-
 
 function NavItem({ href, label, pathname, onClick, isButton }) {
   const isActive = pathname === href;
