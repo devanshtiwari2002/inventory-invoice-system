@@ -26,16 +26,28 @@ export default function Sidebar() {
 
         {role === "admin" && (
           <>
-            <NavItem href="/products" label="Products" pathname={pathname} />
-            <NavItem href="/users" label="Users" pathname={pathname} />
+            <NavItem
+              href="/dashboard/products"
+              label="Products"
+              pathname={pathname}
+            />
+            <NavItem
+              href="/dashboard/users"
+              label="Staff"
+              pathname={pathname}
+            />
           </>
         )}
 
         {role === "staff" && (
-          <NavItem href="/sales" label="Sales" pathname={pathname} />
+          <NavItem href="/dashboard/sales" label="Sales" pathname={pathname} />
         )}
 
-        <NavItem href="/profile" label="Profile" pathname={pathname} />
+        <NavItem
+          href="/dashboard/profile"
+          label="Profile"
+          pathname={pathname}
+        />
         <NavItem onClick={logoutUser} label="Logout" isButton />
       </nav>
     </div>
