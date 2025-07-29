@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* globals.css or any global styles */
+#__next-route-announcer,
+.nextjs-toast {
+  display: none !important;
+}
+
+[data-nextjs-dev-overlay] {
+  display: none !important;
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

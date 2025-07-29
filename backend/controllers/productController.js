@@ -1,20 +1,28 @@
 const Product = require("../models/productModel");
 
+const csv = require("csv-parser");
+const fs = require("fs");
+
 // Get all products
 const getProduct = async (req, res) => {
   const products = await Product.find();
   res.json(products);
 };
 
-// Add new product
+// CREATE single Product
 const createProduct = async (req, res) => {
   try {
-    const { name, stock, price, category, description } = req.body;
+    const { name, stock, costPrice, sellingPrice, category, description } =
+      req.body;
+
+    const sku = `SKU-${Date.now()}`;
 
     const product = new Product({
+      sku,
       name,
       quantity: stock,
-      price,
+      costPrice,
+      sellingPrice,
       category,
       description,
     });
@@ -30,6 +38,50 @@ const createProduct = async (req, res) => {
   console.log("Request body:", req.body);
 };
 
+//  BULK upload products from CSV
+
+const uploadProductsFromCSV = async (req, res) => {
+  const filePath = req.file.path;
+  const products = [];
+
+  // debugg
+  console.log("📥 File received:", req.file);
+
+  fs.createReadStream(filePath)
+    .pipe(csv())
+    .on("data", (row) => {
+      const {
+        sku,
+        name,
+        costPrice,
+        sellingPrice,
+        stock,
+        category,
+        description,
+      } = row;
+
+      products.push({
+        sku: sku || `sku-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+        name,
+        costPrice,
+        sellingPrice,
+        quantity: stock,
+        category,
+        description,
+      });
+    })
+    .on("end", async () => {
+      try {
+        await Product.insertMany(products);
+        fs.unlinkSync(filePath); // delete the file after use
+        res.status(200).json({ message: "Products uploaded sucessfully" });
+      } catch (error) {
+        console.error("Bulk insert error :", error);
+        res.status(500).json({ message: "Error uploading products" });
+      }
+    });
+};
+
 // Update product
 const updateProduct = async (req, res) => {
   const product = await Product.findById(req.params.id);
@@ -39,7 +91,8 @@ const updateProduct = async (req, res) => {
 
   product.name = req.body.name || product.name;
   product.quantity = req.body.quantity || product.quantity;
-  product.price = req.body.price || product.price;
+  product.costPrice = req.body.costPrice || product.costPrice;
+  product.sellingPrice = req.body.sellingPrice || product.sellingPrice;
   product.category = req.body.category || product.category;
 
   const updated = await product.save();
@@ -63,4 +116,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  uploadProductsFromCSV,
 };

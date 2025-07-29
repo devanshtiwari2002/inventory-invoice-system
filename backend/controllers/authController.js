@@ -3,8 +3,11 @@ const jwt = require("jsonwebtoken");
 
 // token genrator
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, "secret123", { expiresIn: "7d" });
+  return jwt.sign({ id, role }, process.env.SECRET_KEY, { expiresIn: "7d" });
 };
+
+//debugg
+console.log("SECRET_KEY in auth=", process.env.SECRET_KEY);
 
 // Register User
 const registerUser = async (req, res) => {

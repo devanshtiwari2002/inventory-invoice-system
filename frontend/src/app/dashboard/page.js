@@ -10,8 +10,16 @@ import SalesSummary from "@/components/adminDashboard/SaleSummary";
 import WeeklySalesChart from "@/components/adminDashboard/WeeklySalesChart";
 import StaffPerformanceTable from "@/components/adminDashboard/StaffPerformanceTable";
 import StockOverview from "@/components/adminDashboard/StockOverview";
+import BulkUploadForm from "@/components/BulkUploadForm";
+
+// import used in side bar
+import { logoutUser } from "@/utils/auth";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function DashboardPage() {
+  // side bar logic start
+  const pathname = usePathname();
   const [role, setRole] = useState(null);
   const [dashboardData, setDashboardData] = useState(null);
 
@@ -21,13 +29,19 @@ export default function DashboardPage() {
 
     const fetchData = async () => {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/admin/dashboard", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
-      if (res.ok) setDashboardData(data);
+
+      if (user?.role === "admin") {
+        const res = await fetch("http://localhost:5000/api/admin/dashboard", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json();
+        if (res.ok) setDashboardData(data);
+      } else if (user?.role === "staff") {
+        setDashboardData({});
+      }
     };
 
     fetchData();
@@ -43,6 +57,21 @@ export default function DashboardPage() {
 
         {role === "admin" && (
           <>
+            <BulkUploadForm />
+            <div>
+              <Link href="/dashboard/products">
+                <span className="text-blue-400 hover:underline">
+                  Create Sale
+                </span>
+              </Link>
+
+              <Link href="/dashboard/users">
+                <span className="text-blue-400 hover:underline">
+                  Manage Staff
+                </span>
+              </Link>
+              <NavItem onClick={logoutUser} label="Logout" isButton />
+            </div>
             <SalesSummary todaySales={dashboardData.todaySales} />
             <WeeklySalesChart weeklySales={dashboardData.weeklySales} />
             <StaffPerformanceTable staff={dashboardData.staffPerformance} />
@@ -57,15 +86,41 @@ export default function DashboardPage() {
 
         {role === "staff" && (
           <div>
-            <p className="font-semibold">Staff Summary:</p>
+            <h3 className="font-semibold">Staff Dashboard</h3>
             <ul className="list-disc pl-6">
-              <li>Create New Sale</li>
+              {/* testing */}
+              <Link href="/dashboard/sales">
+                <span className="text-blue-400 hover:underline">
+                  Create Sale
+                </span>
+              </Link>
               <li>View Invoices</li>
-              <li>Manage Products</li>
+              <NavItem onClick={logoutUser} label="Logout" isButton />
             </ul>
           </div>
         )}
       </div>
     </ProtectedRoute>
+  );
+}
+
+function NavItem({ href, label, pathname, onClick, isButton }) {
+  const isActive = pathname === href;
+  const classes = `px-3 py-2 rounded cursor-pointer ${
+    isActive ? "bg-blue-600 font-semibold" : "hover:bg-blue-700"
+  }`;
+
+  if (isButton) {
+    return (
+      <div onClick={onClick} className={classes}>
+        {label}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={href}>
+      <div className={classes}>{label}</div>
+    </Link>
   );
 }

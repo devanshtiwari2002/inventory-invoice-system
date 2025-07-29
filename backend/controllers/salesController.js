@@ -28,14 +28,14 @@ const createSale = async (req, res) => {
         product.stock = product.stock - item.quantity;
         await product.save();
 
-        const total = product.price * item.quantity;
+        const total = product.sellingPrice * item.quantity;
         grandTotal += total;
 
         return {
           productId: product._id,
           name: product.name,
           quantity: item.quantity,
-          price: product.price,
+          sellingPrice: product.sellingPrice,
           total,
         };
       })

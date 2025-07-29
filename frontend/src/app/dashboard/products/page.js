@@ -6,7 +6,8 @@ import axios from "axios";
 export default function ProductPage() {
   const [formData, setFormData] = useState({
     name: "",
-    price: "",
+    costPrice: "",
+    sellingPrice: "",
     stock: "",
     category: "",
     description: "",
@@ -39,7 +40,8 @@ export default function ProductPage() {
       setMessage(res.data?.message || "Product Added Sucessfully");
       setFormData({
         name: "",
-        price: "",
+        costPrice: "",
+        sellingPrice: "",
         stock: "",
         category: "",
         description: "",
@@ -69,9 +71,19 @@ export default function ProductPage() {
 
           <input
             type="number"
-            name="price"
-            placeholder="Price"
-            value={formData.price}
+            name="costPrice"
+            placeholder="Cost Price"
+            value={formData.costPrice}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+            required
+          />
+
+          <input
+            type="number"
+            name="sellingPrice"
+            placeholder="Selling Price"
+            value={formData.sellingPrice}
             onChange={handleChange}
             className="w-full p-2 border rounded"
             required
