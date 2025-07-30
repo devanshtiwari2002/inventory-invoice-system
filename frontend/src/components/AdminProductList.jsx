@@ -5,6 +5,9 @@ import axios from "axios";
 
 export default function AdminProductList() {
   const [products, setProducts] = useState([]);
+  const [lowStockProducts, setLowStockProducts] = useState([]);
+
+  const LOW_STOCK_LIMIT = 10;
 
   // Update state
   const [editingProduct, setEditingProduct] = useState(null);
@@ -19,6 +22,12 @@ export default function AdminProductList() {
           },
         });
         setProducts(res.data);
+
+        // Detech the stock
+        const lowStock = res.data.filter(
+          (product) => product.quantity < LOW_STOCK_LIMIT
+        );
+        setLowStockProducts(lowStock);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -55,6 +64,18 @@ export default function AdminProductList() {
   return (
     <div className="p-6">
       <h2 className="text-xl font-bold mb-4">All Products</h2>
+      {lowStockProducts.length > 0 && (
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 mb-4 rounded">
+          <p className="font-semibold">⚠️ Low Stock Alert:</p>
+          <ul className="list-disc list-inside text-sm">
+            {lowStockProducts.map((product) => (
+              <li key={product._id}>
+                {product.name} – only {product.quantity} left
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <table className="w-full table-auto border border-collapse">
         <thead>
           <tr className="bg-gray-200">
@@ -67,7 +88,10 @@ export default function AdminProductList() {
         </thead>
         <tbody>
           {products.map((p) => (
-            <tr key={p._id}>
+            <tr
+              key={p._id}
+              className={p.quantity < LOW_STOCK_LIMIT ? "bg-red-50" : ""}
+            >
               <td className="border px-2 py-1">{p.name}</td>
               <td className="border px-2 py-1">{p.price}</td>
               <td className="border px-2 py-1">{p.quantity}</td>

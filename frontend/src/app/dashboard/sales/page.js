@@ -18,7 +18,9 @@ export default function SalesPage() {
       const res = await axios.get("http://localhost:5000/api/products", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setProducts(res.data);
+
+      const inStockOnly = res.data.filter((p) => p.quantity > 0);
+      setProducts(inStockOnly);
     };
 
     fetchProducts();
@@ -135,7 +137,7 @@ export default function SalesPage() {
 
           <div>
             <h3 className="font-semibold mb-2">Select Products</h3>
-            {products.map((p) => (
+            {/* {products.map((p) => (
               <div key={p._id} className="flex gap-3 items-center mb-2">
                 <div className="w-32">{p.name}</div>
                 <div className="w-20">₹{p.price}</div>
@@ -147,6 +149,65 @@ export default function SalesPage() {
                   onChange={(e) =>
                     handleQuantityChange(p._id, parseInt(e.target.value))
                   }
+                />
+              </div>
+            ))} */}
+            {/* search */}
+            <input
+              type="text"
+              placeholder="Search by name or ID"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full border p-2 rounded mb-4"
+            />
+            {/* Search Result */}
+            <ul className="max-h-40 overflow-y-auto border rounded">
+              {products
+                .filter(
+                  (p) =>
+                    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    p._id.includes(searchTerm)
+                )
+                .map((p) => (
+                  <li
+                    key={p._id}
+                    className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center"
+                    onClick={() => {
+                      if (
+                        !selectedItems.find((item) => item.productId === p._id)
+                      ) {
+                        selectedItems([
+                          ...selectedItems,
+                          { ...p, quantity: 1 },
+                        ]);
+                        selectedItems("");
+                      }
+                    }}
+                  >
+                    <span>{p.name}</span>
+                    <span className="text-sm text-gray-500">
+                      {p.sellingPrice}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+
+            {/* Selected Products Inputs */}
+            {selectedItems.map((item, index) => (
+              <div key={item._id} className="flex items-center gap-3 mt-3">
+                <div className="w-32">{item.name} </div>
+                <div className="w-20">{item.price}</div>
+                <input
+                  type="number"
+                  min={1}
+                  max={item.quantity}
+                  value={item.quantity}
+                  className="w-20 border p-1"
+                  onChange={(e) => {
+                    const updated = [...selectedItems];
+                    updated[index].quantity = paraseint(e.target.value);
+                    setSelectedItems(updated);
+                  }}
                 />
               </div>
             ))}
