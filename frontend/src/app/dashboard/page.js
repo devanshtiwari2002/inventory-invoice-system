@@ -11,7 +11,7 @@ import WeeklySalesChart from "@/components/adminDashboard/WeeklySalesChart";
 import StaffPerformanceTable from "@/components/adminDashboard/StaffPerformanceTable";
 import StockOverview from "@/components/adminDashboard/StockOverview";
 import BulkUploadForm from "@/components/BulkUploadForm";
-
+import SalesList from "@/components/adminDashboard/Sales.List";
 // import used in side bar
 import { logoutUser } from "@/utils/auth";
 import Link from "next/link";
@@ -76,6 +76,11 @@ export default function DashboardPage() {
             <WeeklySalesChart weeklySales={dashboardData.weeklySales} />
             <StaffPerformanceTable staff={dashboardData.staffPerformance} />
             <StockOverview stock={dashboardData.stock} />
+
+            <div className="p-6 border">
+              <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+              <SalesList />
+            </div>
 
             <div>
               <h2 className="text-xl font-semibold mb-2">Manage Products</h2>
