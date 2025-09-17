@@ -1,18 +1,12 @@
-Sure brother, here's a clean and professional `README.md` that doesn't sound AI-generated. It's written like a real developer introducing their SaaS Inventory + Invoice + Staff Management app, and is easy to customize as your project evolves.
-
----
-
 ```md
 # Inventory & Billing System 🧾📦
 
 A full-stack Inventory and Sales Management System built with **Next.js**, **Tailwind CSS**, **Node.js**, and **MongoDB**. Designed for small to mid-sized businesses to manage products, staff, stock, and generate professional invoices in one place.
 
 ---
+## Features
 
-## 🚀 Features
-
-### ✅ Core Features
-
+### Core Features
 - Role-based login system (`admin`, `staff`)
 - Dashboard with:
   - Daily Sales Summary
@@ -25,14 +19,12 @@ A full-stack Inventory and Sales Management System built with **Next.js**, **Tai
 - PDF invoice generation
 - Real-time toast notifications
 
-### 🔒 Auth & Access Control
-
+###  Auth & Access Control
 - JWT-based authentication
 - Role-based protected routes and UI
 - Staff and Admin have access to different dashboard views
 
-### 📊 Admin Dashboard
-
+### Admin Dashboard
 - Today's sales total
 - Weekly sales chart (line graph)
 - Staff-wise sales performance
@@ -40,9 +32,7 @@ A full-stack Inventory and Sales Management System built with **Next.js**, **Tai
 - Quick access to product and staff management
 
 ---
-
-## 🛠️ Tech Stack
-
+## 🛠 Tech Stack
 | Frontend             | Backend               | Database |
 | -------------------- | --------------------- | -------- |
 | Next.js (App Router) | Node.js + Express.js  | MongoDB  |
@@ -52,10 +42,9 @@ A full-stack Inventory and Sales Management System built with **Next.js**, **Tai
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 ```
-
-📦 root
+root
 ├── backend/ # Express server & APIs
 │ ├── routes/
 │ ├── models/
@@ -76,9 +65,7 @@ A full-stack Inventory and Sales Management System built with **Next.js**, **Tai
 ````
 
 ---
-
 ## 🚧 Setup & Run Locally
-
 ### 1. Clone the repo
 ```bash
 git clone https://github.com/your-username/inventory-system.git
@@ -86,7 +73,6 @@ cd inventory-system
 ````
 
 ### 2. Install dependencies
-
 ```bash
 # For frontend (Next.js)
 cd frontend
@@ -100,16 +86,13 @@ npm install
 ### 3. Create `.env` files
 
 - `.env` for backend:
-
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 
 ```
-
 - Optionally, configure `.env.local` for frontend if needed.
-
 ### 4. Start dev servers
 
 ```bash
@@ -121,16 +104,15 @@ nodemon index.js
 cd ../frontend
 npm run dev
 ```
-
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Open to suggestions, feature ideas, or PRs. Let’s build something useful!
 
 ---
 
-## 🧑‍💻 Author
+## Author
 
 Made with ❤️ by \[Devansh Tiwari]
 [GitHub](https://github.com/your-username)
